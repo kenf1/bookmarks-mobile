@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "../components/AuthContext";
 import SignInScreen from "./pages/SignIn";
 import HomeScreen from "./pages/Home";
+import ProfileScreen from "./pages/Profile";
 
 const Stack = createStackNavigator();
 
@@ -13,10 +14,12 @@ export function AppNavigator() {
   return (
     <Stack.Navigator>
       {user ? (
-        //signed in
-        <Stack.Screen name="Home" component={HomeScreen} />
+        //auth success
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+        </>
       ) : (
-        //not signed in
         <Stack.Screen
           name="SignIn"
           component={SignInScreen}
