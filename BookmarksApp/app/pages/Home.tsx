@@ -31,11 +31,16 @@ export default function HomeScreen({ navigation }) {
 
       {/* profile */}
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>User Profile</Text>
+        <Text style={styles.sectionTitle}>Other</Text>
+
         <View style={styles.buttonsContainer}>
           <Button
             title="Go to Profile"
             onPress={() => navigation.navigate("Profile")}
+          />
+          <Button
+            title="Settings"
+            onPress={() => navigation.navigate("Settings")}
           />
         </View>
       </View>
