@@ -25,7 +25,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (!loading) {
-      //redirect login if no user, else home
       if (!user) {
         router.replace("/");
       } else {
@@ -36,7 +35,7 @@ export default function RootLayout() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" />
       </View>
     );

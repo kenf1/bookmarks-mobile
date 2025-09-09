@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import simpleLogin from "./utils/auth";
+import "@/global.css";
 
 export default function Index() {
   const [email, setEmail] = useState<string>("");
@@ -40,6 +41,7 @@ export default function Index() {
           padding: 8,
         }}
       />
+
       <TextInput
         placeholder="Password"
         value={password}
@@ -53,6 +55,7 @@ export default function Index() {
           padding: 8,
         }}
       />
+
       <Button title="Login" onPress={handleLogin} />
     </View>
   );
