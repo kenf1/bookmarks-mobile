@@ -1,4 +1,7 @@
-.PHONY: fmt clean
+.PHONY: es fmt clean
+
+es:
+	cd BookmarksApp && npx expo start
 
 fmt:
 	npx prettier . --write
