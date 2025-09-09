@@ -21,6 +21,20 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
+        name="create"
+        options={{
+          title: "Create",
+          tabBarIcon: ({ color, focused }) => {
+            return focused ? (
+              <Ionicons name="add" size={24} color={color} />
+            ) : (
+              <Ionicons name="add" size={24} color="gray" />
+            );
+          },
+        }}
+      />
+
+      <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
