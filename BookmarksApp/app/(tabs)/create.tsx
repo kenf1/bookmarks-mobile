@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Alert } from "react-native";
 import React, { useState } from "react";
 
 import handleSubmit from "../utils/bookmarks/create";
@@ -12,27 +12,25 @@ export default function CreateScreen() {
     setBookmarkUrl("");
   };
 
+  const onSubmit = () => {
+    if (!bookmarkName.trim() || !bookmarkUrl.trim()) {
+      Alert.alert(
+        "Missing Info",
+        "Please enter both name and URL before submitting.",
+      );
+      return;
+    }
+
+    handleSubmit(bookmarkName, bookmarkUrl, clearFields);
+  };
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "flex-start",
-        alignItems: "center",
-        padding: 20,
-      }}
-    >
+    <View className="flex-1 justify-start items-center p-5">
       <TextInput
         placeholder="Enter bookmark name"
         value={bookmarkName}
         onChangeText={setBookmarkName}
-        style={{
-          width: "100%",
-          height: 40,
-          borderWidth: 1,
-          marginBottom: 12,
-          padding: 8,
-          borderRadius: 5,
-        }}
+        className="w-full h-10 border border-gray-400 mb-3 px-2 rounded"
       />
 
       <TextInput
@@ -40,30 +38,11 @@ export default function CreateScreen() {
         value={bookmarkUrl}
         onChangeText={setBookmarkUrl}
         multiline
-        style={{
-          width: "100%",
-          height: 300,
-          borderWidth: 1,
-          marginBottom: 12,
-          padding: 8,
-          borderRadius: 5,
-          textAlignVertical: "top",
-        }}
+        className="w-full h-72 border border-gray-400 mb-3 px-2 py-2 rounded text-top"
       />
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "100%",
-          marginTop: "auto",
-        }}
-      >
-        <Button
-          title="Submit"
-          color="#a8d5ba"
-          onPress={() => handleSubmit(bookmarkName, bookmarkUrl, clearFields)}
-        />
+      <View className="flex-row justify-between w-full mt-auto">
+        <Button title="Submit" color="#a8d5ba" onPress={onSubmit} />
         <Button title="Clear" color="#f7a8a8" onPress={clearFields} />
       </View>
     </View>
