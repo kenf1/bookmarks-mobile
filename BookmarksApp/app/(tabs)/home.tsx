@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Linking, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Bookmark } from "../data/response";
@@ -42,24 +42,30 @@ export default function HomeScreen() {
 
   if (loading) {
     return (
-      <View>
+      <View className="flex-1 justify-center items-center">
         <Text>Loading bookmarks...</Text>
       </View>
     );
   }
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <View className="flex-1 p-4 bg-white">
       <FlatList
         data={bookmarks}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ marginBottom: 12 }}>
-            <Text style={{ fontWeight: "bold" }}>{item.name}</Text>
-            <Text>{item.url}</Text>
+          <View className="mb-4">
+            <Text className="font-bold text-lg">{item.name}</Text>
+            <Pressable onPress={() => Linking.openURL(item.url)}>
+              <Text className="text-blue-500 underline">{item.url}</Text>
+            </Pressable>
           </View>
         )}
-        ListEmptyComponent={<Text>No bookmarks found.</Text>}
+        ListEmptyComponent={
+          <Text className="text-gray-500 text-center mt-6">
+            No bookmarks found.
+          </Text>
+        }
       />
     </View>
   );
