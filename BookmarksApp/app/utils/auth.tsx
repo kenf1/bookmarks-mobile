@@ -1,11 +1,13 @@
 import axios from "axios";
 
+import { BASE_ENDPOINT } from "../data/consts";
+
 export async function serverLogin(
   email: string,
   password: string,
 ): Promise<{ id: string; email: string } | null> {
   try {
-    const response = await axios.post("http://localhost:3000/users", {
+    const response = await axios.post(`${BASE_ENDPOINT}/users`, {
       email,
       password,
     });
@@ -25,4 +27,19 @@ export function simpleLogin(email: string, password: string): boolean {
   const validPassword = "password";
 
   return email === validEmail && password === validPassword;
+}
+
+//todo: replace logic
+export async function serverSignup(
+  name: string,
+  email: string,
+  password: string,
+): Promise<{ id: number; email: string; name: string } | null> {
+  const user = {
+    id: 1,
+    email,
+    name,
+  };
+
+  return user;
 }
