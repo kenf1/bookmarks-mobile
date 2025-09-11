@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import simpleLogin from "./utils/auth";
+import { serverLogin } from "./utils/auth";
 import "@/global.css";
 
 export default function Index() {
@@ -13,10 +13,11 @@ export default function Index() {
 
   const handleLogin = async () => {
     try {
-      const loginSuccess = await simpleLogin(email, password);
-      if (loginSuccess) {
-        await AsyncStorage.setItem("user", email); //save user email
-        router.replace("/home"); //user can't go back to login
+      const user = await serverLogin(email, password);
+      if (user) {
+        await AsyncStorage.setItem("userId", user.id);
+        await AsyncStorage.setItem("userEmail", user.email);
+        router.replace("/home");
       } else {
         Alert.alert("Login failed", "Invalid email or password");
       }

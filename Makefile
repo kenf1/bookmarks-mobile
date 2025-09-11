@@ -1,10 +1,14 @@
-.PHONY: es fmt clean
+.PHONY: app server fmt clean
 
-es:
+app:
 	cd BookmarksApp && npx expo start
 
+server:
+	cd server && npm run dev
+
 fmt:
-	npx prettier . --write
+	cd BookmarksApp && npx prettier . --write
+	cd server && npx prettier . --write
 
 clean:
 	find . -type d -name "node_modules" | xargs rm -rf
