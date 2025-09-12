@@ -17,6 +17,7 @@ export default function Index() {
       if (user) {
         await AsyncStorage.setItem("userId", user.id);
         await AsyncStorage.setItem("userEmail", user.email);
+        await AsyncStorage.setItem("userName", user.username);
         router.replace("/home");
       } else {
         Alert.alert("Login failed", "Invalid email or password");

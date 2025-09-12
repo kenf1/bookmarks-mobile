@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { serverSignup } from "./utils/auth";
 import "@/global.css";
+import { User } from "./data/response";
 
 export default function Signup() {
   const [name, setName] = useState<string>("");
@@ -14,7 +15,7 @@ export default function Signup() {
 
   const handleSignup = async () => {
     try {
-      const user = await serverSignup(name, email, password);
+      const user: User | null = await serverSignup(name, email, password);
       if (user) {
         await AsyncStorage.setItem("userId", user.id.toString());
         await AsyncStorage.setItem("userEmail", user.email);

@@ -1,11 +1,15 @@
 import type { User, Bookmark } from "./response_models";
 
 export const users: User[] = [
-  { id: 101, email: "admin@example.com", password: "admin" },
-  { id: 102, email: "manager@example.com", password: "manager" },
-  { id: 103, email: "user3@example.com", password: "user3" },
+  { id: 101, email: "admin@example.com", username: "admin", password: "admin" },
+  {
+    id: 102,
+    email: "manager@example.com",
+    username: "manager",
+    password: "manager",
+  },
+  { id: 103, email: "user3@example.com", username: "user3", password: "user3" },
 ];
-
 export const bookmarks: Bookmark[] = [
   { id: 1, userId: 101, name: "Google", url: "https://www.google.com" },
   { id: 2, userId: 102, name: "Apple", url: "https://www.apple.com" },

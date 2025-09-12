@@ -38,10 +38,32 @@ app.post("/users", (req: Request<{}, {}, LoginRequestBody>, res: Response) => {
   const user = users.find((u) => u.email === email && u.password === password);
 
   if (user) {
-    return res.json({ id: user.id, email: user.email });
+    return res.json({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    });
   } else {
     return res.status(401).json({ message: "Invalid email or password" });
   }
+});
+
+app.post("/users/create", (req, res) => {
+  const { email, username, password } = req.body;
+  if (!email || !username || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email, username, and password are required" });
+  }
+
+  const exists = users.find((u) => u.email === email);
+  if (exists) {
+    return res.status(409).json({ message: "User already exists" });
+  }
+
+  const id: number = users.reduce((max, u) => Math.max(max, u.id), 100) + 1;
+  users.push({ id, email, username, password });
+  res.status(201).json({ id, email, username });
 });
 
 //todo: add auth
