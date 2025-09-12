@@ -1,14 +1,14 @@
-import { Text, View, TextInput, Button, Alert } from "react-native";
-import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { View, Alert } from "react-native";
+import { TextInput, Button, Text, Surface } from "react-native-paper";
+import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { serverLogin } from "./utils/auth";
-import "@/global.css";
 
 export default function Index() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -17,6 +17,7 @@ export default function Index() {
       if (user) {
         await AsyncStorage.setItem("userId", user.id);
         await AsyncStorage.setItem("userEmail", user.email);
+        await AsyncStorage.setItem("userName", user.username);
         router.replace("/home");
       } else {
         Alert.alert("Login failed", "Invalid email or password");
@@ -27,39 +28,59 @@ export default function Index() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-lightBlue-400 font-bold text-center text-3xl mb-5">
-        BookmarksApp
-      </Text>
-
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        className="w-64 h-10 mb-3 border border-gray-300 px-2"
-      />
-
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        className="w-64 h-10 mb-3 border border-gray-300 px-2"
-      />
-
-      <Button title="Login" onPress={handleLogin} />
-
-      <Text className="pt-4">
-        {"Don't have an account? "}
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        paddingHorizontal: 20,
+        backgroundColor: "#fff",
+      }}
+    >
+      <Surface style={{ padding: 20, elevation: 4, borderRadius: 8 }}>
         <Text
-          className="text-blue-500 underline"
-          onPress={() => router.push("/signup")}
+          variant="headlineMedium"
+          style={{ textAlign: "center", marginBottom: 20, color: "#6200ee" }}
         >
-          Sign up
+          BookmarksApp
         </Text>
-      </Text>
+
+        <TextInput
+          label="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          mode="outlined"
+          style={{ marginBottom: 16 }}
+        />
+
+        <TextInput
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          mode="outlined"
+          style={{ marginBottom: 24 }}
+        />
+
+        <Button
+          mode="contained"
+          onPress={handleLogin}
+          style={{ marginBottom: 16 }}
+        >
+          Login
+        </Button>
+
+        <Text style={{ textAlign: "center" }}>
+          {"Don't have an account? "}
+          <Text
+            style={{ color: "#6200ee", textDecorationLine: "underline" }}
+            onPress={() => router.push("/signup")}
+          >
+            Sign up
+          </Text>
+        </Text>
+      </Surface>
     </View>
   );
 }

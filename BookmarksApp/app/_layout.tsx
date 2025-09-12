@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import { Stack, Slot } from "expo-router";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, View } from "react-native";
+import { Provider as PaperProvider, MD3LightTheme } from "react-native-paper";
 
-export default function RootLayout() {
+function RootLayoutContent() {
   const [user, setUser] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function RootLayout() {
   useEffect(() => {
     async function loadUser() {
       try {
-        const savedUser = await AsyncStorage.getItem("user");
+        const savedUser: string | null = await AsyncStorage.getItem("user");
         setUser(savedUser);
       } catch (e) {
         console.error("Failed to load user from AsyncStorage", e);
@@ -35,7 +36,7 @@ export default function RootLayout() {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -47,5 +48,13 @@ export default function RootLayout() {
       <Stack.Screen name="signup" />
       <Slot />
     </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <PaperProvider theme={MD3LightTheme}>
+      <RootLayoutContent />
+    </PaperProvider>
   );
 }
