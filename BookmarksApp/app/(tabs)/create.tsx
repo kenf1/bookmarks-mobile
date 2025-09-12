@@ -1,5 +1,6 @@
-import { View, TextInput, Button, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
+import { View, Alert } from "react-native";
+import { TextInput, Button, Surface } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { handleSubmit } from "../utils/bookmarks/create";
@@ -39,26 +40,44 @@ export default function CreateScreen() {
   };
 
   return (
-    <View className="flex-1 justify-start items-center p-5">
+    <Surface style={{ flex: 1, padding: 16, justifyContent: "flex-start" }}>
       <TextInput
-        placeholder="Enter bookmark name"
+        label="Enter bookmark name"
         value={bookmarkName}
         onChangeText={setBookmarkName}
-        className="w-full h-10 border border-gray-400 mb-3 px-2 rounded"
+        mode="outlined"
+        style={{ marginBottom: 16 }}
       />
 
       <TextInput
-        placeholder="Enter bookmark url"
+        label="Enter bookmark URL"
         value={bookmarkUrl}
         onChangeText={setBookmarkUrl}
+        mode="outlined"
         multiline
-        className="w-full h-72 border border-gray-400 mb-3 px-2 py-2 rounded text-top"
+        numberOfLines={8}
+        style={{ marginBottom: 16, textAlignVertical: "top" }}
       />
 
-      <View className="flex-row justify-between w-full mt-auto">
-        <Button title="Submit" color="#a8d5ba" onPress={onSubmit} />
-        <Button title="Clear" color="#f7a8a8" onPress={clearFields} />
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Button
+          mode="contained"
+          onPress={onSubmit}
+          buttonColor="#a8d5ba"
+          style={{ flex: 1, marginRight: 8 }}
+        >
+          Submit
+        </Button>
+
+        <Button
+          mode="contained"
+          onPress={clearFields}
+          buttonColor="#f7a8a8"
+          style={{ flex: 1, marginLeft: 8 }}
+        >
+          Clear
+        </Button>
       </View>
-    </View>
+    </Surface>
   );
 }
