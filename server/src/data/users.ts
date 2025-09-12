@@ -10,6 +10,7 @@ export const users: User[] = [
   },
   { id: 103, email: "user3@example.com", username: "user3", password: "user3" },
 ];
+
 export const bookmarks: Bookmark[] = [
   { id: 1, userId: 101, name: "Google", url: "https://www.google.com" },
   { id: 2, userId: 102, name: "Apple", url: "https://www.apple.com" },
